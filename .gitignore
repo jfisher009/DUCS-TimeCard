@@ -107,3 +107,8 @@ dist
 public/images/desktop/
 public/images/phone/
 public/images/tablet/
+
+
+# Ignore node stuff
+node_modules/
+package-lock.json/
