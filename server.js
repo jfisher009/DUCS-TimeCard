@@ -21,7 +21,7 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 
 // application constants
-const PORT = 3000;
+const PORT = 3200;
 
 // create the http app
 const app = express();

@@ -1,6 +1,6 @@
 {
     "secret": "supersecret",
-    "host": "mcs.drury.edu",
+    "host": "localhost",
     "user": "julian",
     "password":"57m#jtd/B:",
     "database": "julian"
