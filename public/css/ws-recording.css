@@ -1,0 +1,34 @@
+/*
+   File: ws-recording.css
+   Author: S. Sigman          Date: 1/18/2021
+   Copyright 2021 by Scott Sigman
+   
+   This file is the style file for the work session recording page, 
+   ws-recording.html.
+
+   Notes: 
+   1. image from: https://pixabay.com/illustrations/abstract-lines-www-computer-dual-5371567/
+   2. responsive background from: https://www.webfx.com/blog/web-design/responsive-background-image/
+
+   Modifications:
+
+*/
+
+/* heading rules */
+.fa-user-circle, .user{
+    color: darkgray;
+    font-size: 1rem;
+}
+
+#navbar_main{
+    display: block;
+}
+
+#stu-info-btn,#inst-info-btn{
+    color: gray;
+}
+
+#stu-info-btn:hover,#inst-info-btnL:hover{
+    color: white;
+}
+ /* form rules */
