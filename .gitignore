@@ -111,4 +111,4 @@ public/images/tablet/
 
 # Ignore node stuff
 node_modules/
-package-lock.json/
+package-lock.json/ 
