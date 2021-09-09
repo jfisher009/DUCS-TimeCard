@@ -18,7 +18,7 @@ const bodyParser = require("body-parser");
 const router = require("express").Router();
 //const User = require("../models/user");
 const jwt = require("jwt-simple");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const key = "supersecret";
 const conn = require("../mysqldb");
 router.use(bodyParser.json());

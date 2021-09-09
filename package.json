@@ -1,38 +1,29 @@
 {
-  "name": "drury-ddt",
-  "version": "0.1.0",
-  "description": "The drury-dtt package contains the code for the DUCS Time Tracker application (DTT).  This application allows students enrolled in CS that have a project component to record their time using a mobile device like a phone.  Instructors for the course with projects can use the application to generate weekly time cards for each student.  Additional functionality for the project cam be found in the README.md file for the project. ",
+  "name": "ducstimecard",
+  "version": "1.0.0",
+  "description": "Dependencies for DUCS Time Card",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MCS-Drury/APPDEVII-SemesterProjectStarterCode.git"
+    "url": "git+https://github.com/jfisher009/DUCSTimeCard.git"
   },
-  "keywords": [
-    "Application",
-    "Development",
-    "II",
-    "Semester",
-    "Project"
-  ],
-  "author": "S. Sigman",
-  "license": "MIT",
+  "author": "Julian Fisher",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MCS-Drury/APPDEVII-SemesterProjectStarterCode/issues"
+    "url": "https://github.com/jfisher009/DUCSTimeCard/issues"
   },
-  "homepage": "https://github.com/MCS-Drury/APPDEVII-SemesterProjectStarterCode#readme",
+  "homepage": "https://github.com/jfisher009/DUCSTimeCard#readme",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "connect-mongodb-session": "^2.4.1",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "express-session": "^1.17.1",
+    "express-session": "^1.17.2",
     "jwt-simple": "^0.5.6",
-    "mongoose": "^5.11.9",
     "mysql": "^2.18.1"
   }
 }
