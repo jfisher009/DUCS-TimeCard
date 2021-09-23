@@ -10,7 +10,6 @@
 const router = require("./studentTotals");
 
 router.post('/', function(req,res){
-    req.session.destroy();
     res.clearCookie('connect.sid');
     res.clearCookie('studentData');
     res.status(200).json('{msg: session destroyed}');

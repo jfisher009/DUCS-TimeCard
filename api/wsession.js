@@ -11,12 +11,10 @@
 //
 // Modifications
 // 1/25/2021 Adapted from App Dev I project by S. Sigman
+// 9/14/2021 Modified MySql queries to be resistant to SQL injections by J Fisher
 
 const bodyParser = require("body-parser");
 const router = require("express").Router();
-//const SessionTime = require("../models/session-time");
-//const User = require("../models/user");
-//const Project = require("../models/project");
 const conn = require("../mysqldb");
 router.use(bodyParser.json());
 
@@ -28,15 +26,15 @@ router.post('/', (req, res) => {
   else{
     other = req.body.other
   }
+
   let sqlINSERT = 'INSERT Worksession (Student_User_iduser, Project_idproject, startTime, endTime, `code`, code90Description, `description`) \n'
-  sqlINSERT += 'SELECT newTable.iduser, newTable.idproject, CAST("' + req.body.wsDate + " " + req.body.startTime + '" AS DATE), ' + 'CAST("' + req.body.wsDate + " " + req.body.finishTime + '" AS DATETIME), "' + req.body.code + '", "' + other + '", "' + req.body.desc + '"\n'
+  sqlINSERT += 'SELECT newTable.iduser, newTable.idproject, CAST("' + req.body.wsDate + " " + req.body.startTime + '" AS DATE), ' + 'CAST("' + req.body.wsDate + " " + req.body.finishTime + '" AS DATETIME), "' + req.body.code + '", "' + other + '", "' + req.body.desc + '"\n' // parameters not replaced because a check is not being run against these parameters
   sqlINSERT += 'FROM ( '
   sqlINSERT += 'SELECT u.iduser, p.idproject FROM `User` u\n'
-  sqlINSERT += 'INNER JOIN Project p ON p.projectCode = "' + req.body.project + '"\n'
-  sqlINSERT += 'WHERE u.email = "' + req.body.owner + '" ) newTable;'
+  sqlINSERT += 'INNER JOIN Project p ON p.projectCode = ?\n' //replace parameter here with ? because it is used to pull data out of the DB
+  sqlINSERT += 'WHERE u.email = ? ) newTable;' //replace parameter here with ? because it is used to pull data out of the DB
 
-  console.log(sqlINSERT)
-  conn.query(sqlINSERT, (err,rows) =>{
+  conn.query(sqlINSERT, [req.body.project, req.body.owner], (err,rows) =>{
     if(err){
       res.status(400).send({msg: "Error saving work session"})
     }

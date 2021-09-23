@@ -12,7 +12,7 @@
 // 
 // Modifications
 // Added session saving 03/19/2021
-// 9/14/2021 Modified MySql queries to be resistant to SQL injections
+// 9/14/2021 Modified MySql queries to be resistant to SQL injections by J Fisher
 
 const numberOfDays = 7;
 const conn = require("../mysqldb");

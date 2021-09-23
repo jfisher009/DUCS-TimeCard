@@ -12,12 +12,10 @@
 // 1/17/2021 Reused code from App Dev I 2020 project. S. Sigman
 // 1/17/2021 Modified query to include password. S. Sigman
 // 4/22/2021 Modified Query to use MySql
-// 9/14/2021 Modified MySql queries to be resistant to SQL injections
+// 9/14/2021 Modified MySql queries to be resistant to SQL injections by J Fisher
 
 const bodyParser = require("body-parser");
-//const { $where } = require("../models/user");
 const router = require("express").Router();
-//const User = require("../models/user");
 const jwt = require("jwt-simple");
 const bcrypt = require("bcryptjs");
 const key = "supersecret";

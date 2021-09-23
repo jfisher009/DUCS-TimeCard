@@ -12,7 +12,7 @@
 // 
 // Modifications
 // 05/10/2021 - Updated route to use mysql
-// 9/14/2021 Modified MySql queries to be resistant to SQL injections
+// 9/14/2021 Modified MySql queries to be resistant to SQL injections by J Fisher
 
 const router = require("express").Router();
 //const User = require("../models/user");
