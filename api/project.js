@@ -12,6 +12,7 @@
 // 
 // Modifications
 // 05/10/2021 - Updated route to use mysql
+// 9/14/2021 Modified MySql queries to be resistant to SQL injections
 
 const router = require("express").Router();
 //const User = require("../models/user");
@@ -20,8 +21,11 @@ const conn = require("../mysqldb");
 //router.use(bodyParser.json());
 router.get('/',(req,res) => {
     //need to find role of user before we can find their associated projects
-    let userSELECT = 'SELECT role FROM `User` WHERE email = "' + req.query.u + '";'
-    conn.query(userSELECT, (err,rows) => {
+    let userSELECT = 'SELECT role FROM `User` WHERE email = ?;'
+    email = decodeURI(req.query.u);
+    
+    conn.query(userSELECT, [email], (err,rows) => {
+        console.log(err)
         if(err){
             res.status(404).send({msg: "No project found"})
         }
@@ -32,8 +36,7 @@ router.get('/',(req,res) => {
                 SELECTsql += "INNER JOIN Student s on u.iduser = s.User_iduser ";
                 SELECTsql += "INNER JOIN Student_has_Project b ON b.Student_user_iduser = s.User_iduser ";
                 SELECTsql += "INNER JOIN Project p ON b.Project_idProject = p.idProject ";
-                SELECTsql += "WHERE u.email = ";
-                SELECTsql += '"' + req.query.u + '";';
+                SELECTsql += "WHERE u.email = ?;";
             
             }
             //generate SQL select for instructor
@@ -42,12 +45,11 @@ router.get('/',(req,res) => {
                 SELECTsql += 'INNER JOIN courseOffering_has_Instructor b1 ON u.iduser = b1.Instructor_user_iduser '
                 SELECTsql += 'INNER JOIN courseOffering c ON b1.Class_idClass = c.idClass '
                 SELECTsql += 'INNER JOIN Project p ON c.idClass = p.Class_idClass '
-                SELECTsql += 'WHERE u.email = "' + req.query.u +'";'
+                SELECTsql += 'WHERE u.email = ?;'
             }
     
-            conn.query(SELECTsql, (err, rows) => {
+            conn.query(SELECTsql, [email], (err, rows) => {
                 if (err) return res.status(500).json({error: err});
-                
                 if(!(rows.length > 0 )){
                     res.status(404);
                     res.send({msg: "No projects found."});
@@ -76,21 +78,5 @@ router.get('/',(req,res) => {
     });
 })
 
-// Deprecated mongo route
-/*
-router.get('/',(req,res) => {
-    console.log(`Projects for user ${req.query.u} requested`);
-    User.find({email: req.query.u}, (err, users) => {
-        if(users[0]) {
-            // assert: user found
-            // return their projects
-            res.status(200).json(users[0].projects);
-        }
-        else {
-            res.status(404).send({msg: "No projects found."});
-        }
-    });
-});
 
-*/
 module.exports = router;

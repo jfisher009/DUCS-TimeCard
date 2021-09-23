@@ -31,6 +31,7 @@ $(function(){
     //copied from ws-recording.js
     // adjust the heading name
     $('#lg-userToggle').html(window.localStorage.getItem("fName"));
+    
     // find the user's projects and populate the project dropdown
     // 1. create the URL with an encoded query string
     let encodedQuery = encodeURIComponent(window.localStorage.getItem("email"));

@@ -94,39 +94,8 @@ router.post('/', async function(req,res){
                 });
             });
         }
-        
     });
 
 });
 
-//deprecated mongodb route
-/*
-router.post("/",function(req,res){
-    console.log(req.body);
-    User.find({email:req.body.email}, function(err, existingUser){
-        if(existingUser[0]){
-            res.status(409)
-            res.send({"message":"A user with the given email already exists"});
-        }
-        else if(err){
-            res.status(500);
-            res.send({"message":"An internal error has occured"});
-        }
-        else{
-            const hash = bcrypt.hashSync(req.body.password, 10)
-            let newUser = new User( {
-                lname: req.body.lname,
-                fname: req.body.fname,
-                email: req.body.email,
-                password: hash,
-                role: req.body.role,
-                projects: req.body.projects
-            });
-    
-            newUser.save();
-            res.status(201).send({msg: "User Created"})
-        }
-    });
-});
-*/
 module.exports = router;

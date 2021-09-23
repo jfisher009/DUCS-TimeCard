@@ -37,35 +37,8 @@ router.use("/api/auth", require("./api/auth"));
 router.use("/api/wsession", require("./api/wsession"));
 router.use("/api/project", require("./api/project"));
 router.use("/api/studentTotals",require("./api/studentTotals"));
-//student work week is DEPRECATED
-//router.use("/api/studentWorkWeek",require("./api/studentWorkWeek"));
 router.use("/api/user", require("./api/user"));
 router.use("/api/logout",require("./api/logout"))
-
-//Deprecated moongodb code
-/*
-var MongoDBStore = require('connect-mongodb-session')(session);
-
-const store = new MongoDBStore({
-    uri: 'mongodb://localhost:27017/ducs_sessions',
-    collection: 'mySessions'
-  });
-  
-
-app.use(session({
-    secret: 'ab#d%^q1',
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24 // 1 day
-    },
-    store: store,
-    // Boilerplate options, see:
-    // * https://www.npmjs.com/package/express-session#resave
-    // * https://www.npmjs.com/package/express-session#saveuninitialized
-    resave: true,
-    saveUninitialized: true
-  }));
-
-  */
  
 // use the router in the app
 app.use(router);
