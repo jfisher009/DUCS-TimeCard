@@ -111,7 +111,7 @@ public/images/tablet/
 
 # Ignore node stuff
 node_modules/
-package-lock.json/ 
+package-lock.json
 
 # Ignore configuration for mysql because it is different in test environment and on server
 configuration/config.json
