@@ -1,7 +1,0 @@
-{
-    "secret": "supersecret",
-    "host": "localhost",
-    "user": "root",
-    "password":"mysqlPa$$word",
-    "database": "development"
-}
