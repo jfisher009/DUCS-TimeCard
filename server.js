@@ -14,6 +14,7 @@
 // 1/17/2021 - Added express route to implement the authentication
 //             API call. S. Sigman
 // 1/25/2021 - Added express route to save a worksession
+// 9/26/2021 - Added morgan logging
 
 // import the express server
 const express = require("express");

@@ -3,6 +3,8 @@
 // Copyright 2021 by J. Fisher
 // 
 // Handle the form and api calls to make a new user account
+// Modification log
+// 9/25/2021 - Fixed issue that displayed incorrect message uppon user creation
 
 
 
