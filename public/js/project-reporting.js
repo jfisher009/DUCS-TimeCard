@@ -36,7 +36,6 @@ $(function(){
     // 1. create the URL with an encoded query string
     let encodedQuery = encodeURIComponent(window.localStorage.getItem("email"));
     let projUrl = `/api/project?u=${encodedQuery}`;
-    console.log(`URL for GET Projects ${projUrl}`);
     // make an ajax call to get the user's projects
     $.ajax({
         url: projUrl,
@@ -44,7 +43,6 @@ $(function(){
         dataType: "json"
     })
     .done((data, statusText, xhr)=>{
-        console.log(`Get Projects Status Code: ${xhr.status}. Num projects returned: ${data.length}`);
         // Got the projects put in the dropdown 
         if (xhr.status == 200 && data.length > 0) {
             addProjects(data);

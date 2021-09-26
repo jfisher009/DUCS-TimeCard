@@ -19,12 +19,27 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require('express-session');
+const morgan = require('morgan');
+const fsr = require('file-stream-rotator');
+const cookieParser = require("cookie-parser");
 
 // application constants
 const PORT = 3200;
 
 // create the http app
 const app = express();
+
+// make morgan token to get authenticated user
+app.use(cookieParser());
+morgan.token('id', function getId (req) {
+    return req.cookies.email;
+})
+
+// create stream to log to file
+const logStream = fsr.getStream({filename:'./logs/log', frequency:'daily',verbose:'true'});
+
+// set logging format - must be before adding api routes or setting express static page
+app.use(morgan(':date[clf] :remote-addr - :id ":method :url" :status', {stream: logStream}));
 
 // set up a route to serve static pages from the public folder
 app.use(express.static("public"));

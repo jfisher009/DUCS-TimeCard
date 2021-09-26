@@ -30,10 +30,6 @@ class HPApp {
     }
 
     initialize () {
-        // code to initialize the app goes here
-        // ie.  add the listeners here
-        console.log(`${this.getTitle} app initialized`);
-
         // initialization for sidebar menu
         $("[data-trigger]").on("click", function(e){
             e.preventDefault();
@@ -91,7 +87,6 @@ class HPApp {
 
         // sign the user in
         $('#signin-form').submit((event) =>{
-            console.log('Sign In pressed');
             event.preventDefault(); // prevent submission
 
             // get the user data
@@ -111,8 +106,6 @@ class HPApp {
                 dataType: "json"
             })
             .done((data, statusText, xhr) => {
-                console.log(`Returned message: ${data.msg} Status Code: ${xhr.status}` );
-                console.log(data)
                 if (xhr.status == 200) {
                     // save user's email and name in local storage for use on 
                     // other pages

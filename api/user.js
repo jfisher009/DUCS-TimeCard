@@ -15,7 +15,6 @@
 
 const bodyParser = require("body-parser");
 const router = require("express").Router();
-//const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const conn = require("../mysqldb");
 
@@ -37,7 +36,6 @@ router.post('/', async function(req,res){
     //send INSERT
     conn.query(sqlUserINSERT, (err, rows) => {
         if (err){
-            console.log(err);
             if(err.errno == 1062){
                 res.status(409).json({"message":"A user with that email already exists."});
             }
@@ -51,7 +49,7 @@ router.post('/', async function(req,res){
             sqlSELECT += 'email = "' + req.body.email + '";';
             conn.query(sqlSELECT, (err, rows) => {
                 if(err){
-                    console.log(err);
+                    console.log(err)
                     if(err.errno == 1062){
                         res.status(409).json({"message":"A user with that email already exists."});
                     }
@@ -60,11 +58,9 @@ router.post('/', async function(req,res){
                     }
                 }
                 let newUserID = rows[0].iduser;
-                console.log(newUserID)
                 
                 //make a variable to hold the query for the specific role 
                 let roleInsert;
-                console.log(req.body.roleInfo)
 
                 //add data if the new user is a student
                 if(req.body.role == "student"){
@@ -85,11 +81,11 @@ router.post('/', async function(req,res){
                 //send the next query
                 conn.query(roleInsert, (err, rows) => {
                     if(err){
-                        console.log(err);
+                        res.status(400).send();
                     }
                     else{
                         res.status(201);
-                        res.send("{message: User Created}");
+                        res.send({'message': 'User Created'});
                     }
                 });
             });

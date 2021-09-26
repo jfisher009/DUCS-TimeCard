@@ -25,7 +25,6 @@ router.get('/',(req,res) => {
     email = decodeURI(req.query.u);
     
     conn.query(userSELECT, [email], (err,rows) => {
-        console.log(err)
         if(err){
             res.status(404).send({msg: "No project found"})
         }

@@ -1,7 +1,7 @@
 {
     "secret": "supersecret",
-    "host": "mcs.drury.edu",
-    "user": "julian",
-    "password":"57m#jtd/B:",
-    "database": "julian"
+    "host": "localhost",
+    "user": "root",
+    "password":"mysqlPa$$word",
+    "database": "development"
 }

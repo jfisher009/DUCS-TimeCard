@@ -20,21 +20,22 @@ const jwt = require("jwt-simple");
 const bcrypt = require("bcryptjs");
 const key = "supersecret";
 const conn = require("../mysqldb");
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
 router.use(bodyParser.json());
 
+
 router.post('/',async (req,res) => {
-    console.log(`Auth called for ${req.body.email}`);
 
     //find user
     let qry = "SELECT email, passwordHash, lname, fname, role, created FROM User WHERE email = ?;";
     
     //query the database
     conn.query(qry, [req.body.email], async (err, rows) => {
-        console.log(err)
         if (err) return res.status(500).json({error: err});
 
         if(rows.length != 1){
-            res.status(500).json({error: "Improper number of users returned"})
+            res.status(401).json({msg: 'user unauthorized'});
         }
         else{
             user = rows[0];
@@ -43,11 +44,13 @@ router.post('/',async (req,res) => {
 
             //check if hash and plain text password match
             let result = await bcrypt.compare(req.body.password, passHash);
-            console.log("Result:", result)
 
             //if user is found and password matches hash
             if(result){
                 const token = jwt.encode({username: req.body.email}, key);
+
+                //save email in cookie to log authenticated users
+                res.cookie('email',req.body.email)
                 res.status(200).json({msg: 'user authenticated', 
                                         fname: user.fname, 
                                         lname: user.lname, 

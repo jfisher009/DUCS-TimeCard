@@ -40,17 +40,13 @@ class WSApp {
             })
         });
         
-        // code to initialize the app goes here
-        // ie.  add the listeners here
-        console.log(`${this.getTitle} app initialized`);
-
         // adjust the heading name
         $('#lg-userToggle').html(window.localStorage.getItem("fName"));
+        
         // find the user's projects and populate the project dropdown
         // 1. create the URL with an encoded query string
         let encodedQuery = encodeURIComponent(window.localStorage.getItem("email"));
         let projUrl = `/api/project?u=${encodedQuery}`;
-        console.log(`URL for GET Projects ${projUrl}`);
         // make an ajax call to get the user's projects
         $.ajax({
             url: projUrl,
@@ -58,7 +54,6 @@ class WSApp {
             dataType: "json"
         })
         .done((data, statusText, xhr)=>{
-            console.log(`Get Projects Status Code: ${xhr.status}. Num projects returned: ${data.length}`);
             // Got the projects put in the dropdown 
             if (xhr.status == 200 && data.length > 0) {
                 this.addProjects(data);
@@ -157,8 +152,6 @@ class WSApp {
                 dataType: "json"
             }).always(function(data){
                 alert(data.msg);
-                console.log("Status")
-                console.log(data.status)
             })
         })
 
@@ -230,15 +223,12 @@ class WSApp {
         //display and hide other cattegory depending on code select
         $("#otherCategoryDiv").hide();
         $("#code").change(function(){
-            console.log("call")
             if($("#code").val() == "90"){
-                console.log("is 90")
                 $("#otherCategory").attr("hidden",false);
                 //require when shown
                 $("#otherCategory").attr("required",true);
             }
             else{
-                console.log("not 90")
                 $("#otherCategory").attr("hidden",true);
                 //do not require when not shown
                 $("#otherCategory").attr("required",false);
