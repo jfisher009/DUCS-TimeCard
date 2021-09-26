@@ -20,7 +20,9 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "clf-date": "^0.2.0",
     "cookie-parser": "^1.4.5",
+    "date": "^1.0.2",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "file-stream-rotator": "^0.5.7",

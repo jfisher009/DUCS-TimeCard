@@ -36,11 +36,14 @@ morgan.token('id', function getId (req) {
     return req.cookies.email;
 })
 
+// use morgan logger to log server requests
 // create stream to log to file
 const logStream = fsr.getStream({filename:'./logs/log', frequency:'daily',verbose:'true'});
 
 // set logging format - must be before adding api routes or setting express static page
-app.use(morgan(':date[clf] :remote-addr - :id ":method :url" :status', {stream: logStream}));
+const logger = morgan(':date[clf] :remote-addr - :id ":method :url" :status', {stream: logStream});
+app.use(logger);
+
 
 // set up a route to serve static pages from the public folder
 app.use(express.static("public"));
@@ -60,8 +63,52 @@ router.use("/api/logout",require("./api/logout"))
 app.use(router);
 
 app.listen(PORT, (err) => {
-    if (err) 
-        console.log("Server startup failed.");
-    else
-        console.log(`Server listening on port ${PORT}`);
+    if (err){
+        logStream.write(`${getCurrentDateTime()} - Server startup failed.\n`);
+        logStream.write(err);
+        logStream.write('\n');
+    }
+    else{
+        logStream.write(`${getCurrentDateTime()} - Server startup. Listening on port ${PORT}\n`);
+    }
 });
+
+//handle logging for server shutdown
+process.on( 'SIGINT', function() {
+    logStream.write(`${getCurrentDateTime()} - Server shut down.\n`);
+    process.exit();
+});
+
+// function to return the current date and time in common log format
+function getCurrentDateTime(){
+    //get the current date and start with an empty string
+    let currDate = new Date();
+    let clfDate = '';
+    //map month number to month abreviation
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Nov','Dec']
+    let month = months[currDate.getUTCMonth()]
+
+    //add day/month/year to clfDate
+    clfDate += currDate.getUTCDate() + '/' + month + '/' + currDate.getUTCFullYear();
+
+    //add leading 0s to hour min sec
+    let hour = currDate.getUTCHours().toString();
+    let min = currDate.getUTCMinutes().toString();
+    let sec = currDate.getUTCSeconds().toString();
+
+    if(hour.length == 1){
+        hour = '0' + hour;
+    }
+    if(min.length == 1){
+        min = '0' + min;
+    }
+    if(sec.length == 1){
+        sec = '0' + sec;
+    }
+    //add time to clfDate
+    clfDate += ':' + hour + ':' + min + ':' + sec;
+
+    //add +000 to signify that date/time is in UTC
+    clfDate += ' +0000'
+    return(clfDate)
+}
