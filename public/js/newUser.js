@@ -56,8 +56,6 @@ $(function(){
         })
 
         //if there are no password errors, try to create user
-        console.log(check)
-        console.log(check.length == 0)
         if(check.length == 0){
 
             let userData = {
@@ -69,7 +67,6 @@ $(function(){
                 roleInfo: roleInfo
             }
 
-            console.log(userData)
             // make the API call
             $.ajax({
                 url: "/api/user",
@@ -78,19 +75,18 @@ $(function(){
                 contentType: "application/json",
                 dataType: "json"
             })
-            .always(function(response){
-                console.log(response)
+            .always(function(data, textStatus, response){
                 if(response.status == 201){
                     alert("User created");
                     window.location.replace("index.html");
                 }
-                else if (response.status = 409){
+                else if (response.status == 409){
                     alert("A user with this email already exists");
                 }
-                else if (response.status = 409){
+                else if (response.status == 400){
                     alert("An error occured while saving the new user. Please contact a site admin for help.");
                 }
-                else if (response.status = 409){
+                else{
                     alert("An unidentified error occured. Please contact a site admin for help.");
                 }
             })
